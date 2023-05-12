@@ -1,0 +1,11 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#4A1459",
+        "titleBar.activeBackground": "#671C7D",
+        "titleBar.activeForeground": "#FDFBFE"
+    },
+    "cSpell.words": [
+        "formik",
+        "Formik"
+    ]
+}
