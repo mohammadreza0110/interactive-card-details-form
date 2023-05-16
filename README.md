@@ -1,6 +1,6 @@
 # Card Details - Experience with formik + yup
 
-This project is my first Experience with formik + yup project [Card Details](https://google.com).
+This project is my first Experience with formik + yup project [Card Details](https://interactive-card-details-form-kohl.vercel.app/).
 
 ## Table of contents
 
@@ -56,7 +56,6 @@ I proudly learned:
 
 - How to validate forms in react using formik and yup
 - New expreiences with regex
-
 
 ```jsx
 <BaseInput
