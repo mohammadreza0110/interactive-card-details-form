@@ -36,18 +36,35 @@ const validationSchema = object({
 });
 
 export default function FormSection({ customClasses }) {
-  
   const formik = useFormik({
     initialValues,
     onSubmit,
     validationSchema,
     validateOnMount: true,
   });
-  
+
+  const [formattedNumber, setFormattedNumber] = useState("");
+
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+
+    // Remove all non-digit characters from input value
+    const digitsOnly = value.replace(/\D/g, "");
+
+    // Format the number with separated four digits
+    let formatted = "";
+    for (let i = 0; i < digitsOnly.length; i += 4) {
+      const chunk = digitsOnly.slice(i, i + 4);
+      formatted += chunk + " ";
+    }
+
+    setFormattedNumber(formatted.trim());
+  };
+
   return (
     <>
       <form className="px-6 py-8" onSubmit={formik.handleSubmit}>
-        <div className="flex flex-col lg:w-[352px] gap-y-6 m-auto lg:h-screen place-content-center">
+        <div className="flex flex-col xl:w-[352px] gap-y-6 m-auto xl:h-screen place-content-center">
           {formik.isSubmitting ? (
             <ConfirmedForm />
           ) : (
@@ -84,12 +101,17 @@ export default function FormSection({ customClasses }) {
                   </div>
                 )}
               </div>
+              <input
+                type="text"
+                value={formattedNumber}
+                onChange={handleInputChange}
+              />
               <div className="grid grid-cols-2 gap-x-3">
                 <div>
                   <div className="text-[12px] font-bold pb-1">
                     Exp. Date (MM/YYYY)
                   </div>
-                  <div className="grid grid-cols-2 gap-x-2 lg:w-[170px]">
+                  <div className="grid grid-cols-2 gap-x-2 xl:w-[170px]">
                     <div>
                       <BaseInput
                         name="month"
@@ -136,7 +158,7 @@ export default function FormSection({ customClasses }) {
               </div>
               <button
                 type="submit"
-                className="w-full py-3 text-white transition-transform duration-200 rounded-lg disabled:scale-100 disabled:cursor-not-allowed disabled:bg-neutral-LightGrayishViolet bg-neutral-VeryDarkViolet active:scale-95"
+                className="w-full py-3 text-white transition-transform duration-200 rounded-xl disabled:scale-100 disabled:cursor-not-allowed disabled:bg-neutral-LightGrayishViolet bg-neutral-VeryDarkViolet active:scale-95"
                 disabled={!formik.isValid}
               >
                 confirm
