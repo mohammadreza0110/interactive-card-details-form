@@ -34,7 +34,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Card Details](https://your-live-site-url.com)
+- Live Site URL: [Card Details](https://interactive-card-details-form-kohl.vercel.app/)
 
 ## My process
 

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { object, string, number } from "yup";
+import React, { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import BaseInput from "./BaseInput";
 import ConfirmedForm from "./ConfirmedForm";
+import validationSchema from "../utils/formik/validationSchema";
 
 const initialValues = {
   name: "",
@@ -11,43 +11,60 @@ const initialValues = {
   year: "",
   CVC: "",
 };
+
 const onSubmit = (values) => console.log("");
 
-const validationSchema = object({
-  name: string().required("name is required"),
-  card_number: string()
-    .typeError("Wrong format, numbers only")
-    .required("card_number is required")
-    .matches(/^[0-9]{16}$/, "Invalid Card Number, Should be 16 numbers")
-    .nullable(),
-  month: string()
-    .typeError("Wrong format, numbers only")
-    .required("Can’t be blank")
-    .matches(/^(0[1-9]|1[0-2])$/, "Invalid month")
-    .nullable(),
-  year: string()
-    .typeError("Wrong format, numbers only")
-    .required("Can’t be blank")
-    .matches(/^(2023|2024|2025|2026|2027|2028)$/, "Invalid year"),
-  CVC: string()
-    .typeError("Wrong format, numbers only")
-    .required("Can’t be blank")
-    .matches(/^\d{10}$/, "Invalid CVC Number, Should be 10 Char"),
-});
-
-export default function FormSection({ customClasses }) {
-  
+export default function FormSection({ setCardInfo }) {
   const formik = useFormik({
     initialValues,
     onSubmit,
     validationSchema,
     validateOnMount: true,
   });
-  
+
+  const handleName = ({ target }) => {
+    const noDigits = target.value.replace(/\d/g, "");
+    formik.setFieldValue("name", noDigits);
+    setCardInfo((prev) => ({ ...prev, name: noDigits }));
+  };
+
+  const handleMonth = ({ target }) => {
+    if (target.value.length <= 2) {
+      formik.setFieldValue("month", target.value);
+      setCardInfo((prev) => ({ ...prev, month: target.value }));
+    }
+  };
+
+  const handleCVC = ({ target }) => {
+    if (target.value.length <= 4) {
+      formik.setFieldValue("CVC", target.value);
+      setCardInfo((prev) => ({ ...prev, CVC: target.value }));
+    }
+  };
+
+  const handleYear = ({ target }) => {
+    if (target.value.length <= 4) {
+      formik.setFieldValue("year", target.value);
+      setCardInfo((prev) => ({ ...prev, year: target.value }));
+    }
+  };
+
+  const handleCardNumber = ({ target }) => {
+    const { value } = target;
+
+    // Remove all non-digit characters from input value
+    const digitsOnly = value.replace(/\D/g, "");
+
+    if (digitsOnly.length <= 16) {
+      formik.setFieldValue("card_number", digitsOnly);
+      setCardInfo((prev) => ({ ...prev, number: digitsOnly }));
+    }
+  };
+
   return (
     <>
-      <form className="px-6 py-8" onSubmit={formik.handleSubmit}>
-        <div className="flex flex-col lg:w-[352px] gap-y-6 m-auto lg:h-screen place-content-center">
+      <form className="px-6 py-8 xl:py-0" onSubmit={formik.handleSubmit}>
+        <div className="flex flex-col xl:w-[352px] gap-y-6 m-auto xl:h-screen place-content-center">
           {formik.isSubmitting ? (
             <ConfirmedForm />
           ) : (
@@ -57,8 +74,10 @@ export default function FormSection({ customClasses }) {
                   title="Cardholder Name"
                   type="text"
                   name="name"
+                  value={formik.values.name}
                   placeholder="e.g. Jane Appleseed"
-                  {...formik.getFieldProps("name")}
+                  onChange={handleName}
+                  onBlur={formik.handleBlur}
                   errorStyle={formik.errors.name && formik.touched.name}
                 />
 
@@ -71,9 +90,11 @@ export default function FormSection({ customClasses }) {
               <div>
                 <BaseInput
                   title="Card Number"
-                  name="card_number"
+                  name="card_number" // Keep the name prop as "card_number"
                   placeholder="e.g. 1234 5678 9123 0000"
-                  {...formik.getFieldProps("card_number")}
+                  value={formik.values.card_number.replace(/\s/g, "")} // Remove spaces from the value
+                  onChange={handleCardNumber}
+                  onBlur={formik.handleBlur}
                   errorStyle={
                     formik.errors.card_number && formik.touched.card_number
                   }
@@ -84,16 +105,19 @@ export default function FormSection({ customClasses }) {
                   </div>
                 )}
               </div>
+
               <div className="grid grid-cols-2 gap-x-3">
                 <div>
                   <div className="text-[12px] font-bold pb-1">
                     Exp. Date (MM/YYYY)
                   </div>
-                  <div className="grid grid-cols-2 gap-x-2 lg:w-[170px]">
+                  <div className="grid grid-cols-2 gap-x-2 xl:w-[170px]">
                     <div>
                       <BaseInput
                         name="month"
-                        {...formik.getFieldProps("month")}
+                        value={formik.values.month}
+                        onChange={handleMonth}
+                        onBlur={formik.handleBlur}
                         placeholder="MM"
                         errorStyle={formik.errors.month && formik.touched.month}
                       />
@@ -107,7 +131,9 @@ export default function FormSection({ customClasses }) {
                     <div>
                       <BaseInput
                         name="year"
-                        {...formik.getFieldProps("year")}
+                        value={formik.values.year}
+                        onChange={handleYear}
+                        onBlur={formik.handleBlur}
                         placeholder="YYYY"
                         errorStyle={formik.errors.year && formik.touched.year}
                       />
@@ -123,7 +149,9 @@ export default function FormSection({ customClasses }) {
                   <BaseInput
                     name="CVC"
                     title="CVC"
-                    {...formik.getFieldProps("CVC")}
+                    value={formik.values.CVC}
+                    onChange={handleCVC}
+                    onBlur={formik.handleBlur}
                     placeholder="e.g. 123"
                     errorStyle={formik.errors.CVC && formik.touched.CVC}
                   />
@@ -136,7 +164,7 @@ export default function FormSection({ customClasses }) {
               </div>
               <button
                 type="submit"
-                className="w-full py-3 text-white transition-transform duration-200 rounded-lg disabled:scale-100 disabled:cursor-not-allowed disabled:bg-neutral-LightGrayishViolet bg-neutral-VeryDarkViolet active:scale-95"
+                className="w-full py-3 text-white transition-transform duration-200 rounded-xl disabled:scale-100 disabled:cursor-not-allowed disabled:bg-neutral-LightGrayishViolet bg-neutral-VeryDarkViolet active:scale-95"
                 disabled={!formik.isValid}
               >
                 confirm
