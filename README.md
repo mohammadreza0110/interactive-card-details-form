@@ -1,6 +1,6 @@
 # Card Details - Experience with formik + yup
 
-This project is my first Experience with formik + yup project [Card Details](https://interactive-card-details-form-kohl.vercel.app/).
+This project is my first Experience with formik + yup project [Card Details](https://654bd9f5d61887337fdaf2c5--famous-faun-95a861.netlify.app/).
 
 ## Table of contents
 
@@ -34,7 +34,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Card Details](https://interactive-card-details-form-kohl.vercel.app/)
+- Live Site URL: [Card Details](https://654bd9f5d61887337fdaf2c5--famous-faun-95a861.netlify.app/)
 
 ## My process
 
