@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function FrontCard() {
+export default function FrontCard({ name, cardNumber, year, month }) {
+  let formatted = "";
+  for (let i = 0; i < cardNumber.length; i += 4) {
+    const chunk = cardNumber.slice(i, i + 4);
+    formatted += chunk + " ";
+  }
   return (
     // lg:-translate-x-10
     <section className="absolute 2xl:static card_gradient p-5 xl:p-10 w-[300px] xl:w-[500px] rounded-lg -ml-4 translate-x-[-50%] left-[50%] 2xl:translate-x-40 mb-10 2xl:ml-auto top-32 z-50">
@@ -10,15 +15,23 @@ export default function FrontCard() {
           <div className="w-5 h-5 border border-white rounded-full xl:w-7 xl:h-7"></div>
         </div>
         <div className="pt-8">
-          <div className="flex pb-4 text-2xl text-white xl:text-4xl gap-x-2 xl:gap-x-4">
-            <span>0000</span>
-            <span>0000</span>
-            <span>0000</span>
-            <span>0000</span>
+          <div className="flex pb-4 text-2xl text-white xl:text-4xl gap-x-2 xl:gap-x-2">
+            {formatted ? (
+              formatted
+            ) : (
+              <>
+                <span>0000</span>
+                <span>0000</span>
+                <span>0000</span>
+                <span>0000</span>
+              </>
+            )}
           </div>
           <div className="flex justify-between">
-            <div className="text-white">JANE APPLESEED</div>
-            <div className="text-white">00/00</div>
+            <div className="text-white">{name}</div>
+            <div className="text-white">
+              {year}/{month}
+            </div>
           </div>
         </div>
       </div>
