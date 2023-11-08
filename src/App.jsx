@@ -2,8 +2,17 @@ import "./App.css";
 import FormSection from "./components/FormSection";
 import FrontCard from "./components/FrontCard";
 import BackCard from "./components/BackCard";
+import { useState } from "react";
 
 function App() {
+  const [cardInfo, setCardInfo] = useState({
+    number: "",
+    name: "",
+    year: "",
+    month: "",
+    CVC: "",
+  });
+
   return (
     <main className="relative h-screen 2xl:flex">
       <section className="2xl:w-1/3">
@@ -11,15 +20,20 @@ function App() {
 
         <div className="2xl:hidden m-auto w-full h-[280px] mb-16 backImage_gradient"></div>
 
-        <div className="absolute mt-10 inset-0 2xl:inset-auto 2xl:top-[50%] 2xl:translate-y-[-50%] ">
-          <FrontCard />
+        <div className="absolute mt-10 xl:mt-0 h-fit inset-0 2xl:inset-auto 2xl:top-[50%] 2xl:translate-y-[-50%] ">
+          <FrontCard
+            name={cardInfo.name}
+            cardNumber={cardInfo.number}
+            year={cardInfo.year}
+            month={cardInfo.month}
+          />
 
-          <BackCard />
+          <BackCard CVC={cardInfo.CVC} />
         </div>
       </section>
 
       <section className="2xl:w-2/3">
-        <FormSection />
+        <FormSection setCardInfo={setCardInfo} />
       </section>
     </main>
   );
