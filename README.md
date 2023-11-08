@@ -58,34 +58,27 @@ I proudly learned:
 - New expreiences with regex
 
 ```jsx
-<BaseInput
-  name="month"
-  {...formik.getFieldProps("month")}
-  placeholder="MM"
-  errorStyle={formik.errors.month && formik.touched.month}
-/>;
-{
-  formik.errors.month && formik.touched.month && (
-    <div className="pt-1 pl-2 text-xs text-red-500">{formik.errors.month}</div>
-  );
-}
+<div>
+  <BaseInput
+    title="Cardholder Name"
+    type="text"
+    name="name"
+    value={formik.values.name}
+    placeholder="e.g. Jane Appleseed"
+    onChange={handleName}
+    onBlur={formik.handleBlur}
+    errorStyle={formik.errors.name && formik.touched.name}
+  />
+
+  {formik.errors.name && formik.touched.name && (
+    <div className="pt-1 pl-2 text-sm text-red-500">{formik.errors.name}</div>
+  )}
+</div>
 ```
-
-<!-- ### Continued development
-
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect. -->
-
-<!-- ### Useful resources
-
-- [Nextjs Docs](https://nextjs.org/) - This helped me for many reasons. I really liked this pattern and will use it going forward.
-- [Tailwindcss Docs](https://tailwindcss.com/) - This is an amazing article which helped me finally line-clamp inside it's. I'd recommend it to anyone still learning this concept. -->
 
 ## Author
 
-<!-- - Website - [Add your name here](https://www.your-site.com) -->
-<!-- - Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername) -->
-
-- github - [@mohammadreza0110](https://github.com/mohammadreza0110)
+- LinkedIn - [@mohammadreza-khorsand](https://www.linkedin.com/in/mohammadreza-khorsand)
 
 <!-- ## Acknowledgments
 
