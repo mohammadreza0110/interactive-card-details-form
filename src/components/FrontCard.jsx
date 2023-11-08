@@ -28,9 +28,11 @@ export default function FrontCard({ name, cardNumber, year, month }) {
             )}
           </div>
           <div className="flex justify-between">
-            <div className="text-white">{name}</div>
             <div className="text-white">
-              {year}/{month}
+              {name ? name : <span className="text-slate-300">your name</span>}
+            </div>
+            <div className="text-white">
+              {year ? year : "00"}/{month ? month : "00"}
             </div>
           </div>
         </div>

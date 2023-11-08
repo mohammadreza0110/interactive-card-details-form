@@ -6,7 +6,7 @@ export default function BackCard({ CVC }) {
       <div className="w-full h-12 bg-black xl:h-20"></div>
       <div className="xl:w-[420px] px-6 m-auto">
         <div className="xl:p-3 p-2.5 text-right text-white rounded-md xl:mb-9 mt-5 xl:mt-7 bg-slate-400 mb-10">
-          {CVC}
+          {CVC ? CVC : "1111"}
         </div>
 
         <div className="flex-col hidden m-auto xl:flex xl:w-6/12 gap-y-2">
