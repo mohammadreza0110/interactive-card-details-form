@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import BaseInput from "./BaseInput";
 import ConfirmedForm from "./ConfirmedForm";
@@ -12,7 +12,7 @@ const initialValues = {
   CVC: "",
 };
 
-const onSubmit = (values) => console.log("");
+const onSubmit = (values) => console.log("Submitted !");
 
 export default function FormSection({ setCardInfo }) {
   const formik = useFormik({
@@ -164,7 +164,7 @@ export default function FormSection({ setCardInfo }) {
               </div>
               <button
                 type="submit"
-                className="w-full py-3 text-white transition-transform duration-200 rounded-xl disabled:scale-100 disabled:cursor-not-allowed disabled:bg-neutral-LightGrayishViolet bg-neutral-VeryDarkViolet active:scale-95"
+                className="w-full py-3 text-black transition-transform duration-200 rounded-xl disabled:scale-100 disabled:cursor-not-allowed disabled:bg-neutral-LightGrayishViolet bg-neutral-900 active:scale-95"
                 disabled={!formik.isValid}
               >
                 confirm
