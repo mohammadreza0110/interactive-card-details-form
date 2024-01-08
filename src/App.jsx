@@ -14,7 +14,7 @@ function App() {
   });
 
   return (
-    <main className="relative h-screen 2xl:flex">
+    <main className="relative h-dvh 2xl:flex">
       <section className="2xl:w-1/3">
         <div className="fixed hidden w-1/4 h-screen 2xl:block backImage_gradient"></div>
 
